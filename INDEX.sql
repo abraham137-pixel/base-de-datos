@@ -17,11 +17,6 @@ INSERT INTO dept(dname,deptno,loc)
 VALUES('OPERATIONS',40,'BOSTON');
 SELECT loc, dname
 FROM dept;
-
-SELECT loc, dname
-FROM dept
-WHERE deptno<30;
-
 CREATE TABLE emp(
 empno NUMERIC(4) PRIMARY KEY,
 ename VARCHAR(11) NOT NULL,
@@ -36,7 +31,7 @@ CONSTRAINT emp_deptno_detp_deptno_fk FOREIGN KEY (deptno) REFERENCES dept (deptn
 -- Restrcción en emp_mgr_fk llave forania de la tabla emp 
 CONSTRAINT emp_mgr_fk FOREIGN KEY (mgr) REFERENCES emp (empno));
 
-DESCRIBE emp;
+-- DESCRIBE emp;
 
 INSERT INTO emp
 VALUES(7839, 'KING', 'PRESIDENT', NULL, '2011-11-17', 5000, NULL, 10);
@@ -68,12 +63,12 @@ INSERT INTO emp
 VALUES(7934,'MILLER','CLERK',7782, '2012-01-23',1300,NULL,10);
 
 SELECT ename, hiredate, sal FROM emp;
-
 CREATE TABLE salgrade(
     grade NUMERIC(1) PRIMARY KEY,
     losal NUMERIC(6,2) NOT NULL,
     hisal NUMERIC(6,2) NOT NULL
     );
+   -- DESCRIBE salgrade;
     INSERT INTO salgrade
 VALUES(1,700,1200);
 INSERT INTO salgrade
@@ -84,60 +79,3 @@ INSERT INTO salgrade
 VALUES(4,2001,3000);
 INSERT INTO salgrade
 VALUES(5,3001,9999);
-SELECT *
-FROM salgrade
-WHERE losal > 1400
-AND hisal < 4000;
-SELECT ename, sal, sal+300
-FROM emp;
-SELECT ename, sal, 12*sal+100
-FROM emp;
-SELECT ename, sal, 100+sal*12
-FROM emp;
-SELECT ename, sal, 12*(sal+100)
-FROM emp;
-SELECT ename, sal, 1.20*sal
-FROM emp;
-SELECT ename, job, sal, comm
-FROM emp;
-SELECT ename, sal, 12*(sal+100)
-FROM emp
-WHERE ename='KING';
-SELECT ename, 12*sal+comm
-FROM emp
-WHERE ename='KING';
-SELECT ename AS nombre, sal salario
-FROM emp;
-SELECT ename AS nombre, 12*sal AS "Salario Anual"
-FROM emp;
-SELECT CONCAT(ename,' ',job) AS empleado
-FROM emp;
-SELECT CONCAT(ename,' is a ',job) AS "Detalles de Empleo"
-FROM emp;
-
-SELECT DISTINCT deptno, job
-FROM emp;
-SELECT ename,job,deptno
-FROM emp
-WHERE job = 'CLERK';
-SELECT ename, sal, comm
-FROM emp
-WHERE sal <= comm;
-SELECT ename, sal
-FROM emp
-WHERE sal BETWEEN 1000 AND 1500;
-select empno, ename,sal, mgr
-from emp
-where mgr IN(7902,7566,7788);
-SELECT empno,ename,mgr,deptno
-FROM emp
-WHERE ename IN('FORD','ALLEN')
-SELECT ename
-FROM emp
-WHERE ename LIKE 'S%';
-SELECT ename, hiredate
-FROM emp
-WHERE hiredate LIKE '2011%';
-SELECT ename
-FROM emp
-WHERE ename LIKE '_A%';
