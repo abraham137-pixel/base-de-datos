@@ -87,4 +87,4 @@ INSERT INTO `dept_emp`.`dept` (`deptno`, `dname`, `loc`) VALUES (40, 'OPERATIONS
 
 COMMIT;
 select
-from (dept)
+from (dept_emp)
