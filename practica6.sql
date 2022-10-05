@@ -1,20 +1,7 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
 -- -----------------------------------------------------
 -- Schema PRACTICA6
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `PRACTICA6` ;
-
--- -----------------------------------------------------
--- Schema PRACTICA6
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `PRACTICA6` ;
 USE `PRACTICA6` ;
 
@@ -24,12 +11,8 @@ USE `PRACTICA6` ;
 DROP TABLE IF EXISTS `PRACTICA6`.`FABRICANTE` ;
 
 CREATE TABLE IF NOT EXISTS `PRACTICA6`.`FABRICANTE` (
-  `codigo` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`codigo`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
+  `codigo` INT PRIMARY KEY AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL UNIQUE);
 
 
 -- -----------------------------------------------------
@@ -38,33 +21,40 @@ COLLATE = utf8_spanish_ci;
 DROP TABLE IF EXISTS `PRACTICA6`.`productos` ;
 
 CREATE TABLE IF NOT EXISTS `PRACTICA6`.`productos` (
-  `codigo` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(100) NOT NULL,
+  `codigo` INT PRIMARY KEY AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL UNIQUE,
   `precio` DOUBLE UNSIGNED NOT NULL,
-  `FABRICANTE_codigo` INT NOT NULL,
-  PRIMARY KEY (`codigo`),
-  INDEX `fk_productos_FABRICANTE_idx` (`FABRICANTE_codigo` ASC) VISIBLE,
+  `FABRICANTE_codigo` INT,
   CONSTRAINT `fk_productos_FABRICANTE`
     FOREIGN KEY (`FABRICANTE_codigo`)
-    REFERENCES `PRACTICA6`.`FABRICANTE` (`codigo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
+    REFERENCES `PRACTICA6`.`FABRICANTE` (`codigo`));
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
+-- aqui se ven los valores para la tabla de fabricante
 describe table fabricante;
-insert into fabricante (idcodigo.nombre) values (null,"sony");
-insert into fabricante (idcodigo.nombre) values ("windos");
-insert into fabricante (idcodigo.nombre)values ("pepsi");
-insert into fabricante (idcodigo.nombre) values ("hawei");
-insert into fabricante (idcodigo.nombre)  values ("xiaomi");
-insert into fabricante (idcodigo.nombre)  values ("lenovo");
-insert into fabricante (idcodigo.nombre) values ("adidas");
-insert into fabricante (idcodigo.nombre)  values ("android");
-insert into fabricante (idcodigo.nombre) values ("capcom");
+-- y aqui insertamos los valores para la tabla 
+insert into fabricante (codigo,nombre) values (null,"asus");
+insert into fabricante (codigo, nombre) values (null,"lenovo");
+insert into fabricante (codigo, nombre)values (null,"hewlett-pack");
+insert into fabricante (codigo, nombre) values (null,"samsug");
+insert into fabricante (codigo, nombre)  values (null,"seagate");
+insert into fabricante (codigo, nombre)  values (null,"crucial");
+insert into fabricante (codigo, nombre) values (null,"gygabite");
+insert into fabricante (codigo, nombre)  values (null,"huawei");
+insert into fabricante (codigo, nombre) values (null,"xiaomi");
+-- se ven los valores que lleva esta tabla
+describe table productos;
+-- insertamos los valores para la tabla
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"discodurosat3itb",89.99,5);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values (null,"memoriaramddr48gb",120,6);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"discossd1tb",150.99,4);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"geforcegtx105ti",185,7);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"geforcegt1080xtreme",755,6);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"monitor24ledfullhd",202,1);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"monitor27ledfullhd",245.99,1);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"portatilyoga520",559,2);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"portatilideapd320",320,2);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"impresorahpdeskjt3720",59.99,3);
+insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"impresorahplaseretjetprom26nw",180,3);
+
+select * from productos;
