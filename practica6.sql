@@ -58,3 +58,4 @@ insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"impr
 insert into productos (codigo,nombre,precio,fabricante_codigo) values(null,"impresorahplaseretjetprom26nw",180,3);
 
 select * from productos;
+select * from fabricante;
