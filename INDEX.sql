@@ -79,3 +79,92 @@ INSERT INTO salgrade
 VALUES(4,2001,3000);
 INSERT INTO salgrade
 VALUES(5,3001,9999);
+-- select ejecicios
+-- ejercicio 1
+select count(*) from emp;
+-- ejecicio 2
+select dept.dname, count(emp.ename)
+from dept left join emp
+on dept.deptno-emp.deptno
+group by dept.deptno;
+-- ejercicio 3
+select max(sal),min(sal),avg(sal), dept.dname
+from  dept  join emp
+on dept.deptno= emp.deptno
+group by emp.deptno;
+-- ejercicio 4
+SELECT job as Cargo, min(sal) as salario_min, max(sal) as salario_max,count(empno), avg(sal)
+FROM emp
+GROUP BY job
+HAVING avg(sal) < 1100;
+-- ejecicio 5
+select  ename , sal
+from emp;
+-- ejecicio 6
+select * from emp;
+-- ejecicio 7
+select emp.ename as nombre,emp.sal as salario,dept.dname as departamento
+from emp join dept
+on emp.deptno=dept.deptno;
+-- ejercicio 8
+select * 
+from emp
+where job="analyst";
+-- ejercicio 9
+select *
+from emp
+where deptno=(select deptno
+from dept
+where dname ="sales");
+-- ejecicio 10
+select ename, sal
+from emp
+where sal=(
+     select max(sal) from emp where deptno=(
+            select deptno
+from dept
+where dname="acoointg"));
+-- trigers
+
+-- ejercicios de departanento 1
+    CREATE TABLE reg_dept_i(
+    fecha datetime,
+    usuaio varchar(50),
+deptno NUMERIC(2) PRIMARY KEY,
+dname VARCHAR(12) UNIQUE,
+loc VARCHAR(11));
+
+create trigger dept_registro_AI after insert on dept 
+for each row 
+insert into reg_dept_i
+values(
+current_timestamp(),
+current_user(),
+new.deptno,
+new.dname,
+new.loc);
+
+-- ejecicio2
+ CREATE TABLE reg_dept_u(
+    fecha datetime,
+    usuaio varchar(50),
+deptno NUMERIC(2) PRIMARY KEY,
+dname VARCHAR(12) UNIQUE,
+loc VARCHAR(11),
+deptno_old NUMERIC(2) PRIMARY KEY,
+dname_old VARCHAR(12) UNIQUE,
+loc_old VARCHAR(11));
+
+
+create trigger dept_registro_bu before update on dept 
+for each row 
+insert into reg_dept_u
+values(
+current_timestamp(),
+current_user(),
+new.deptno,
+new.dname,
+new.loc,
+old.deptno,
+old.dname,
+old.loc);
